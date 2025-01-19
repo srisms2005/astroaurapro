@@ -1,0 +1,795 @@
+<html>
+<head>
+<title>Astrology predictions with QR</title>
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="card2.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  
+  <style>
+body{
+ font-family: 'Poppins', sans-serif;
+}
+
+    /* Navbar Styles */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7); /* Transparent background */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #00ffff;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #333;
+      padding: 10px 0;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      top: 40px; /* Position below the dropdown button */
+      width: 250px; /* Increased dropdown width */
+      border-radius: 8px;
+    }
+
+    .dropdown-content a {
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      display: block;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #00ffff;
+      color: #121212;
+    }
+
+    .dropdown.open .dropdown-content {
+      display: block;
+    }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: #fff;
+      font-size: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #00ffff;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+    }
+
+    .nav-links-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links-mobile a {
+      text-align: center;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .nav-links-mobile a:hover {
+      color: #00ffff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .social-icons {
+        display: none;
+      }
+    }
+
+    /* Content Spacing */
+    .content {
+      padding-top: 70px;
+    }
+
+    .section {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .section:nth-child(even) {
+      background: #222;
+    }
+
+    .section:nth-child(odd) {
+      background: #333;
+    }
+    /* downbar*/
+    .downbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7); /* Transparent background */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .downbar .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .downbar a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .downbar a:hover {
+      color: #0051ff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Transparent Navigation Bar -->
+  <div class="navbar">
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="nav-links">
+      <a href="#"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+      <div class="dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="fas fa-book"></i> Instruction</a>
+        <div class="dropdown-content">
+          <a href="#instruction1"><i class="fas fa-lightbulb"></i> Flip Zodiac Card</a>
+          <a href="#instruction2"><i class="fas fa-tools"></i> Get QR Code</a>
+          <a href="#instruction3"><i class="fas fa-code"></i> Scan & View</a>
+        </div>
+      </div>
+    </div>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const mobileMenu = document.getElementById("mobile-menu");
+      mobileMenu.style.display = mobileMenu.style.display === "flex" ? "none" : "flex";
+    }
+
+    function toggleDropdown(event) {
+      event.preventDefault();
+      const dropdown = event.target.closest(".dropdown");
+      dropdown.classList.toggle("open");
+    }
+  </script>
+
+
+
+
+  <h1>ASTRO AURA</h1>
+  <h2>Welcome to the World of Astrological predictions and cosmic insights.<br>
+     We blend the ancient wisdom of astrology through modern understanding system.</h2>
+
+
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 220">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2023/02/02/19/39/horoscope-7763611_640.jpg" alt="LOAD">
+       <figcaption>ARIES</figcaption>
+      </figure>
+
+      <ul><h3>
+        <li>Tamil Name   : மேஷம்</li>
+        <li>Symbol       : The ram </li>
+        <li>Element      : Fire </li>
+        <li>Ruling planet : Mars </li>
+        <li>Opposite Sign : Libra</li>
+    </h3>
+      </ul>
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/aries-7617681_1280.jpg" alt="load" width="360">
+      </figure>
+
+      <a href="web101.html"> <button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- /flip-card-container -->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 170">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://img.freepik.com/free-photo/painting-bull-calf_1340-35088.jpg?ga=GA1.1.2076186836.1725775183&semt=ais_hybrid" alt="Image 2">
+        <figcaption>TAURUS</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   : ரிஷபம்</li>
+        <li>Symbol       : The bull </li>
+        <li>Element      : Earth </li>
+        <li>Ruling planet : Venus</li>
+        <li>Opposite Sign : Scorpio</li>
+    </h3>
+      </ul>
+
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/taurus-7617693_1280.jpg" alt="image-2" width="380">
+      </figure>
+
+      <a href="web102.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- /flip-card-container -->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 350">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2024/03/27/20/13/ai-generated-8659809_640.png" alt="Gemini" width="360">
+        <figcaption>GEMINI</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   : மிதுனம்</li>
+        <li>Symbol       : The twins </li>
+        <li>Element      : Air</li>
+        <li>Ruling planet : Mercury </li>
+        <li>Opposite Sign :Virgo</li>
+    </h3>
+      </ul>
+
+    </div>
+
+    <div class="card-back">
+      <!-- only if the image is necessary -->
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/gemini-7617685_1280.jpg" alt="Gemini" width="400">
+      </figure>
+
+      <a href="web103.html"><button>GET QRCODE</button></a>
+
+      <!-- can add svg here and remove these eight spans -->
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--next3 -->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 220">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2015/02/22/09/38/horoscope-644862_640.jpg" alt="cancer" width="400">
+        <figcaption>CANCER</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   : கடகம்</li>
+        <li>Symbol       : The crab</li>
+        <li>Element      : Water</li>
+        <li>Ruling planet : Moon </li>
+        <li>Opposite Sign : Capricorn</li>
+    </h3>
+      </ul>
+
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/cancer-7617683_1280.jpg  " alt="cancer">
+      </figure>
+
+      <a href="web104.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- /flip-card-container -->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 170">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2024/04/26/16/37/horoscope-8722207_640.jpg" alt="Image 2" width="370">
+        <figcaption>LEO</figcaption>
+      </figure>
+
+      <ul><h3>
+        <li>Tamil Name   : சிம்மம்</li>
+        <li>Symbol       : The lion </li>
+        <li>Element      :  Fire</li>
+        <li>Ruling planet : The sun</li>
+        <li>Opposite Sign : Aquarius</li>
+    </h3>
+      </ul>    
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/leo-7617686_1280.jpg" alt="image-2">
+      </figure>
+
+     <a href="web105.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- /flip-card-container -->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 350">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://img.freepik.com/premium-photo/captivating-portrait-photograph-majestic-woman_1195262-55.jpg?ga=GA1.1.2076186836.1725775183" alt="vigro">
+        <figcaption>VIRGO</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   : கன்னி</li>
+        <li>Symbol       : The Maiden</li>
+        <li>Element      :  Earth</li>
+        <li>Ruling planet : Mercury </li>
+        <li>Opposite Sign : Pisces</li>
+    </h3>
+      </ul>
+    </div>
+
+    <div class="card-back">
+      <!-- only if the image is necessary -->
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/virgo-7617694_1280.jpg" alt="vigro" width="400">
+      </figure>
+
+      <a href="web106.html"><button>GET QRCODE</button></a>
+
+      <!-- can add svg here and remove these eight spans -->
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--next3-->
+<!--next3-->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 220">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://wallpapercave.com/wp/wp2214495.jpg" alt="libra" width="360">
+        <figcaption>LIBRA</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   : துலாம்</li>
+        <li>Symbol       : The scales </li>
+        <li>Element      : Air </li>
+        <li>Ruling planet : Venus </li>
+        <li>Opposite Sign : Aries</li>
+    </h3>
+      </ul>
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/libra-7617688_1280.jpg" alt="libra" width="320">
+      </figure>
+
+      <a href="web107.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--next3-->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 220">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2017/08/28/15/28/scorpio-2689945_640.jpg" alt="scorpio" width="440">
+        <figcaption>SCORPIO</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   :விருச்சிகம்</li>
+        <li>Symbol       : The scorpion </li>
+        <li>Element      : Water</li>
+        <li>Ruling planet : Mars </li>
+        <li>Opposite Sign : Taurus</li>
+    </h3>
+      </ul>
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/scorpio-7617691_1280.jpg" alt="scorpio">
+      </figure>
+
+     <a href="web108.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--next3-->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 220">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/03/30/07/45/sagittarius-7100667_640.jpg" alt="sagittarius" width="350">
+        <figcaption>SAGITTARIUS</figcaption>
+      </figure>
+
+      <ul><h3>
+        <li>Tamil Name   : தனுசு</li>
+        <li>Symbol       : Half-horse archer </li>
+        <li>Element      : Fire </li>
+        <li>Ruling planet : Jupiter </li>
+        <li>Opposite Sign : Gemini</li>
+    </h3>
+      </ul>
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/sagittarius-7617690_1280.jpg" alt="load">
+      </figure>
+
+      <a href="web109.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--next3-->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 220">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://t3.ftcdn.net/jpg/05/75/88/24/240_F_575882465_yVW0rUsPjrQ4YmOQl7UcnMYrnMoSRlY8.jpg" alt="loading" width="400">
+        <figcaption>CAPRICORN</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   :மகரம்</li>
+        <li>Symbol       : The Sea-Goat</li>
+        <li>Element      : Earth </li>
+        <li>Ruling planet : Saturn </li>
+        <li>Opposite Sign : Cancer</li>
+    </h3>
+      </ul>
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/capricorn-7617684_1280.jpg" alt="loading" width="350">
+      </figure>
+
+     <a href="web110.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--next3-->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 220">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2024/03/27/20/13/ai-generated-8659804_640.png" alt="Loading" width="350">
+        <figcaption>AQUARIUS</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   : கும்பம்</li>
+        <li>Symbol       : The water-bearer </li>
+        <li>Element      : Air </li>
+        <li>Ruling planet : Uranus </li>
+        <li>Opposite Sign : Leo</li>
+    </h3>
+      </ul>
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/aquarius-7617682_1280.jpg" alt="loading" width="350" loading="lazy">
+      </figure>
+
+      <a href="web111.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--next3-->
+
+<!-- flip-card-container -->
+<div class="flip-card-container" style="--hue: 220">
+  <div class="flip-card">
+
+    <div class="card-front">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://t4.ftcdn.net/jpg/05/61/34/67/240_F_561346729_4lwluYxE3gwktwt0wxnpoXsDLtVm6weJ.jpg" alt="load" width="350">
+        <figcaption>PISCES</figcaption>
+      </figure>
+      <ul><h3>
+        <li>Tamil Name   : மீனம்</li>
+        <li>Symbol       : The two fish </li>
+        <li>Element      : Water </li>
+        <li>Ruling planet : Neptune</li>
+        <li>Opposite Sign : Virgo</li>
+    </h3>
+      </ul>
+    </div>
+
+    <div class="card-back">
+      <figure>
+        <div class="img-bg"></div>
+        <img src="https://cdn.pixabay.com/photo/2022/11/26/11/45/pisces-7617687_1280.jpg" alt="load" width="350">
+      </figure>
+
+      <a href="web112.html"><button>GET QRCODE</button></a>
+
+      <div class="design-container">
+        <span class="design design--1"></span>
+        <span class="design design--2"></span>
+        <span class="design design--3"></span>
+        <span class="design design--4"></span>
+        <span class="design design--5"></span>
+        <span class="design design--6"></span>
+        <span class="design design--7"></span>
+        <span class="design design--8"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="downbar">
+<center><a href="develop.html"><i class="fas fa-user"></i> Developed By</a></center>
+</div>
+</body>
+</html
